@@ -6,6 +6,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using Pulse8.Data;
 using Pulse8.Models;
+using Pulse8.Service;
 
 namespace Pulse8.Controllers
 {
@@ -13,28 +14,33 @@ namespace Pulse8.Controllers
     {
 
         private readonly PulseContext _context;
+        private readonly AccessingData _accessingData = new AccessingData();
 
         public MembersController(PulseContext context)
         {
             _context = context;
         }
 
-        public async Task<IActionResult> Index(int? id)
+        public async Task<IActionResult> Index()
         {
-            ViewData["id"] = id;
+            return View(await _context.Members.ToListAsync());
+        }
 
-            Member member = new Member();
+        // GET: Members/Details/5
+        public async Task<IActionResult> Details(int? id)
+        {
+            if (id == null) return NotFound();
 
-            if (id != null)
-            {
+            //This is the solution to the first coding challenge question.
+            var member = await _context.Members.Include(md => md.MemberDiagnosises)
+                                                 .ThenInclude(d => d.Diagnosis)
+                                                 .ThenInclude(dcm => dcm.DiagnosisCategoryMaps)
+                                                 .ThenInclude(dc => dc.DiagnosisCategory)
+                                                 .AsNoTracking().FirstOrDefaultAsync(m => m.MemberID == id);
 
-                if (id == null) return NotFound();
+           var diagnosisCategoryList = _accessingData.NavigatingCollection(member, id);
 
-                member = await _context.Members
-                                    .AsNoTracking().FirstOrDefaultAsync(m => m.MemberID == id);
-
-                //if (member == null) return NotFound();
-            }
+            if (member == null) return NotFound();
 
             return View(member);
         }

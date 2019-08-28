@@ -22,10 +22,10 @@ namespace Pulse8.Data
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
-            modelBuilder.Entity<Diagnosis>().ToTable("Diagnosis");            //I am overriding the name of the table(Instead of
-            modelBuilder.Entity<DiagnosisCategory>().ToTable("DiagnosisCategory");    //Courses, the table is called Course.
+            modelBuilder.Entity<Diagnosis>().ToTable("Diagnosis");            
+            modelBuilder.Entity<DiagnosisCategory>().ToTable("DiagnosisCategory");    
             modelBuilder.Entity<DiagnosisCategoryMap>().ToTable("DiagnosisCategoryMap");
-            modelBuilder.Entity<Member>().ToTable("Member");    //Courses, the table is called Course.
+            modelBuilder.Entity<Member>().ToTable("Member");    
             modelBuilder.Entity<MemberDiagnosis>().ToTable("MemberDiagnosis");
         }
     }
