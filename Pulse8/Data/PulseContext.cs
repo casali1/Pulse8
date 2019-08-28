@@ -16,7 +16,6 @@ namespace Pulse8.Data
         public DbSet<Diagnosis> Diagnosises { get; set; }
         public DbSet<DiagnosisCategory> DiagnosisCategories { get; set; }
         public DbSet<DiagnosisCategoryMap> DiagnosisCategoryMaps { get; set; }
-
         public DbSet<Member> Members { get; set; }
         public DbSet<MemberDiagnosis> MemberDiagnosises { get; set; }
 
