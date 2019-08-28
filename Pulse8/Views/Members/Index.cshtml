@@ -1,0 +1,38 @@
+﻿@model  Pulse8.Models.Member
+
+
+@{
+    ViewData["Title"] = "Index";
+}
+
+<h1>Index</h1>
+
+
+    <h4>Members</h4>
+
+    <form asp-action="Index" method="get">
+        <div class="form-actions no-color">
+            <p>
+                Find member by id: <input type="text" name="id" value="@ViewData["id"]" />
+                <input type="submit" value="Find" class="btn btn-default" />
+            </p>
+        </div>
+    </form>
+
+    <div>
+        <hr />
+        <dl class="row">
+            <dt class="col-sm-2">
+                @Html.DisplayNameFor(model => model.FirstName)
+            </dt>
+            <dd class="col-sm-10">
+                @Html.DisplayFor(model => model.FirstName)
+            </dd>
+            <dt class="col-sm-2">
+                @Html.DisplayNameFor(model => model.LastName)
+            </dt>
+            <dd class="col-sm-10">
+                @Html.DisplayFor(model => model.LastName)
+            </dd>
+        </dl>
+    </div>
